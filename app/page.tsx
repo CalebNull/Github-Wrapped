@@ -1,19 +1,55 @@
-import { Button } from "@/components/ui/button"
+import { redirect } from "next/navigation"
+import { UsernameForm } from "@/components/username-form"
+import { isValidUsername } from "@/lib/wrapped"
 
-export default function Page() {
+async function wrap(formData: FormData) {
+  "use server"
+  const raw = String(formData.get("login") ?? "").trim()
+
+  const login = raw
+    .replace(/^https?:\/\/github\.com\//i, "")
+    .replace(/\/.*$/, "")
+
+  if (!isValidUsername(login)) {
+    redirect(`/?error=invalid`)
+  }
+  redirect(`/${encodeURIComponent(login)}`)
+}
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>
+}) {
+  const { error } = await searchParams
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
+    <main className="flex min-h-svh items-center justify-center p-6">
+      <div className="flex w-full max-w-sm flex-col items-center gap-6 text-center">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight">GitHub Wrapped</h1>
+          <p className="text-sm text-muted-foreground">
+            Your year in commits, streaks, and languages — in one shareable
+            recap.
+          </p>
         </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
+
+        <UsernameForm action={wrap} />
+
+        {error === "invalid" && (
+          <p className="text-sm text-destructive">
+            That doesn&apos;t look like a GitHub username.
+          </p>
+        )}
+
+        <p className="text-xs text-muted-foreground">
+          Try{" "}
+          <a href="/octocat" className="underline underline-offset-2">
+            octocat
+          </a>{" "}
+          · uses public data only
+        </p>
       </div>
-    </div>
+    </main>
   )
 }

@@ -1,17 +1,27 @@
 import { Geist, Geist_Mono, Noto_Sans, Public_Sans } from "next/font/google"
 
+import { Metadata } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
-const publicSansHeading = Public_Sans({subsets:['latin'],variable:'--font-heading'});
+const publicSansHeading = Public_Sans({
+  subsets: ["latin"],
+  variable: "--font-heading",
+})
 
-const notoSans = Noto_Sans({subsets:['latin'],variable:'--font-sans'})
+const notoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  title: "GitHub Wrapped",
+  description:
+    "Your GitHub year in review — commits, streaks, languages, and more.",
+}
 
 export default function RootLayout({
   children,
@@ -22,7 +32,13 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", notoSans.variable, publicSansHeading.variable)}
+      className={cn(
+        "antialiased",
+        fontMono.variable,
+        "font-sans",
+        notoSans.variable,
+        publicSansHeading.variable
+      )}
     >
       <body>
         <ThemeProvider>{children}</ThemeProvider>
