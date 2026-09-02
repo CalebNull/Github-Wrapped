@@ -47,6 +47,8 @@ export default async function Page({
           <a
             href="https://github.com/octokit"
             className="underline underline-offset-2"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             octokit
           </a>{" "}
