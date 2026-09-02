@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import type { WrappedStats } from "@/lib/wrapped"
 import { buildCards } from "./cards"
@@ -71,6 +72,12 @@ export function Story({ stats }: { stats: WrappedStats }) {
           className="absolute inset-y-0 right-0 z-10 w-1/3 cursor-default"
           onClick={next}
         />
+        <Link
+          href="/"
+          className="absolute top-6 right-3 z-30 rounded-full bg-white/15 px-3 py-1.5 text-xs font-medium text-white transition backdrop:blur hover:bg-white/25"
+        >
+          Try another
+        </Link>
       </div>
     </div>
   )
