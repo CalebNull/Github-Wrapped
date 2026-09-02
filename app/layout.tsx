@@ -4,6 +4,7 @@ import { Metadata } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
+import { AnimatedBackground } from "@/components/animated-background"
 
 const publicSansHeading = Public_Sans({
   subsets: ["latin"],
@@ -41,7 +42,10 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <AnimatedBackground />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

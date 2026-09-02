@@ -47,7 +47,7 @@ export function Story({ stats }: { stats: WrappedStats }) {
   }
 
   return (
-    <div className="flex min-h-svh items-center justify-center bg-black p-0 sm:p-6">
+    <div className="flex min-h-svh items-center justify-center p-0 sm:p-6">
       <div
         className="relative aspect-9/16 h-svh w-full max-w-[430px] overflow-hidden bg-zinc-900 sm:h-auto sm:max-h-[90svh] sm:rounded-2xl"
         onTouchStart={onTouchStart}

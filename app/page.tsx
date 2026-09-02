@@ -28,7 +28,7 @@ export default async function Page({
       <div className="flex w-full max-w-sm flex-col items-center gap-6 text-center">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">GitHub Wrapped</h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted">
             Your year in commits, streaks, and languages — in one shareable
             recap.
           </p>
@@ -42,7 +42,7 @@ export default async function Page({
           </p>
         )}
 
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-muted">
           Try{" "}
           <a
             href="https://github.com/octokit"
