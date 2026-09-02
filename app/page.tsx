@@ -44,8 +44,11 @@ export default async function Page({
 
         <p className="text-xs text-muted-foreground">
           Try{" "}
-          <a href="/octocat" className="underline underline-offset-2">
-            octocat
+          <a
+            href="https://github.com/octokit"
+            className="underline underline-offset-2"
+          >
+            octokit
           </a>{" "}
           · uses public data only
         </p>

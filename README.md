@@ -1,21 +1,34 @@
-# Next.js template
+# GitHub Wrapped
 
-This is a Next.js template with shadcn/ui.
+A Spotify-Wrapped-style year in review for any GitHub account - commits, streaks, languages, and top repos, presented as a swipeable story you can share.
 
-## Adding components
+---
 
-To add components to your app, run the following command:
+## What it does
 
-```bash
-npx shadcn@latest add button
-```
+Enter a GitHub username (or paste a profile URL) and get a recap of that user's last year:
 
-This will place the ui components in the `components` directory.
+- **Total contributions** - commits, pull requests, and reviews
+- **Longest streak** and biggest single day
+- **Busiest month**
+- **Top languages** by commit volume
+- **Most active repository**
 
-## Using components
+The recap renders as a full-screen card story with keyboard, click, and swipe navigation.
 
-To use the components in your app, import them as follows:
+## Roadmap
 
-```tsx
-import { Button } from "@/components/ui/button";
-```
+- [x] Data layer + landing flow
+- [x] Swipeable card story
+- [ ] Language + weekday charts (Recharts)
+- [ ] Full-year contribution heatmap
+- [ ] Dynamic Open Graph share image (`next/og`)
+- [ ] "Developer persona" classifier
+- [ ] Redis caching + per-IP rate limiting
+- [ ] Unit tests for `computeStats`
+
+## Notes
+
+- Uses **public data only**. Private contributions require an OAuth login flow, which isn't implemented yet.
+- Commit-time-of-day stats (night owl vs. early bird) are approximate - the contribution calendar doesn't expose commit timestamps.
+- A user with no activity in the target year gets an empty recap rather than an error.
