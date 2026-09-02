@@ -103,9 +103,12 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
         <Fact k="Top language" v={stats.topLanguages[0]?.name ?? "-"} />
         <Fact k="Busiest month" v={monthName(stats.busiestMonth.month)} />
       </div>
-      <div className="mt-2 text-xs text-white/50">
-        (share buttons land here in phase 2)
-      </div>
+      <a
+        href="/"
+        className="relative inline-block after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-bottom after:scale-x-0 after:bg-white after:transition-transform after:duration-150 after:ease-out after:content-[''] hover:after:scale-x-100"
+      >
+        Wrap up another
+      </a>
     </StoryCard>,
   ].filter(Boolean) as React.ReactNode[]
 }
