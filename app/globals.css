@@ -143,7 +143,6 @@
   100% { transform: translate3d(12%, -20%, 0) scale(1); }
 }
 
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
