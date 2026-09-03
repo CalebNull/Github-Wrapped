@@ -36,7 +36,7 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
       <div className="text-white/70">Let&apos;s look back at your year.</div>
     </StoryCard>,
 
-    <StoryCard key="contributions" gradient="from emerald-600 to-green-700">
+    <StoryCard key="contributions" gradient="from-emerald-600 to-green-700">
       <BigStat
         value={stats.totalContributions.toLocaleString()}
         label="contributions this year"
