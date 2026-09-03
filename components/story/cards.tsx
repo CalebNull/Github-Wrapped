@@ -1,5 +1,8 @@
 import type { WrappedStats } from "@/lib/wrapped"
 import { StoryCard, BigStat } from "./story-card"
+import { LanguageChart, WeekdayChart } from "./charts"
+
+import Link from "next/link"
 
 const MONTHS = [
   "January",
@@ -61,22 +64,26 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
       />
     </StoryCard>,
 
+    <StoryCard key="weekday" gradient="from-teal-500 to-cyan-700">
+      <div className="text-lg font-medium text-white/90">When you commit</div>
+      <div className="w-full">
+        <WeekdayChart data={stats.byWeekday} />
+      </div>
+    </StoryCard>,
+
     <StoryCard key="language" gradient="from-fuchsia-600 to-pink-700">
       <div className="text-lg font-medium text-white/90">
         Your top languages
       </div>
-      <ol className="space-y-1 text-2xl font-bold">
-        {stats.topLanguages.slice(0, 5).map((l, i) => (
-          <li key={l.name}>
-            <span className="text-white/50">{i + 1}.</span> {l.name}
-          </li>
-        ))}
-        {stats.topLanguages.length === 0 && (
-          <li className="text-base font-normal text-white/60">
-            No laguage data this year
-          </li>
-        )}
-      </ol>
+      {stats.topLanguages.length > 0 ? (
+        <div className="w-full">
+          <LanguageChart data={stats.topLanguages} />
+        </div>
+      ) : (
+        <div className="text-base font-normal text-white/60">
+          No language data this year
+        </div>
+      )}
     </StoryCard>,
 
     stats.topRepo && (
@@ -103,12 +110,12 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
         <Fact k="Top language" v={stats.topLanguages[0]?.name ?? "-"} />
         <Fact k="Busiest month" v={monthName(stats.busiestMonth.month)} />
       </div>
-      <a
+      <Link
         href="/"
         className="relative inline-block after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-bottom after:scale-x-0 after:bg-white after:transition-transform after:duration-150 after:ease-out after:content-[''] hover:after:scale-x-100"
       >
         Wrap up another
-      </a>
+      </Link>
     </StoryCard>,
   ].filter(Boolean) as React.ReactNode[]
 }
