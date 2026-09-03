@@ -23,5 +23,5 @@ export default async function Wrapped({
 
   const stats = computeStats(raw)
 
-  return <Story stats={computeStats(raw)} />
+  return <Story stats={stats} />
 }
