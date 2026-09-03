@@ -16,6 +16,7 @@ export type WrappedStats = {
   topLanguages: { name: string, commits: number }[],
   topRepo: { name:string, commits: number } | null
   byWeekday: { day: string; count: number; }[],
+  weeks: { date: string; count: number; weekday: number; level: number }[][],
 }
 
 export function computeStats(raw: RawWrapped): WrappedStats {
@@ -64,6 +65,22 @@ export function computeStats(raw: RawWrapped): WrappedStats {
         } 
     }
 
+    const maxDay = Math.max(...days.map((d) => d.contributionCount), 1)
+    const heatLevel = (c: number) => {
+      if (c <= 0) return 0
+      const r = c / maxDay
+      return r < 0.25 ? 1 : r < 0.5 ? 2 : r < 0.75 ? 3 : 4
+    }
+
+    const weeks = raw.contributions.contributionCalendar.weeks.map((w) => 
+      w.contributionDays.map((d) => ({
+        date: d.date,
+        count: d.contributionCount,
+        weekday: d.weekday,
+        level: heatLevel(d.contributionCount),
+      }))
+    )
+
     return {
       login: raw.login,
       name: raw.name,
@@ -82,6 +99,7 @@ export function computeStats(raw: RawWrapped): WrappedStats {
         .map(([name, commits]) => ({ name, commits })),
       topRepo,
       byWeekday,
+      weeks,
     }
 }
 

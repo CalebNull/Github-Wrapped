@@ -1,6 +1,7 @@
 import type { WrappedStats } from "@/lib/wrapped"
 import { StoryCard, BigStat } from "./story-card"
 import { LanguageChart, WeekdayChart } from "./charts"
+import { Heatmap } from "./heatmap"
 
 import Link from "next/link"
 
@@ -62,6 +63,18 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
         label="was your busiest month"
         sub={`${stats.busiestMonth.count.toLocaleString()} contributions`}
       />
+    </StoryCard>,
+
+    <StoryCard key="heatmap" gradient="from-zinc-800 to-zinc-900">
+      <div className="text-lg font-medium text-white/90">
+        Your year, day by day
+      </div>
+      <div className="pointer-events-auto w-full">
+        <Heatmap weeks={stats.weeks} />
+      </div>
+      <div className="text-sm text-white/60">
+        {stats.totalContributions.toLocaleString()} contributions
+      </div>
     </StoryCard>,
 
     <StoryCard key="weekday" gradient="from-teal-500 to-cyan-700">
