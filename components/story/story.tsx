@@ -24,7 +24,7 @@ export function Story({ stats }: { stats: WrappedStats }) {
         e.preventDefault()
         next()
       } else if (e.key === "ArrowLeft") {
-        e.preventDefault
+        e.preventDefault()
         prev()
       }
     }
