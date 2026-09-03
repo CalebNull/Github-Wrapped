@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Noto_Sans, Public_Sans } from "next/font/google"
+import { Geist_Mono, Noto_Sans, Public_Sans } from "next/font/google"
 
 import { Metadata } from "next"
 import "./globals.css"
