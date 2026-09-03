@@ -15,12 +15,13 @@ export type WrappedStats = {
   busiestMonth: { month: string, count: number },
   topLanguages: { name: string, commits: number }[],
   topRepo: { name:string, commits: number } | null
+  byWeekday: { day: string; count: number; }[],
 }
 
 export function computeStats(raw: RawWrapped): WrappedStats {
   const days = raw.contributions.contributionCalendar.weeks
-    .flatMap((w: any) => w.contributionDays)
-    .sort((a: any, b: any) => a.date.localeCompare(b.date))
+    .flatMap((w) => w.contributionDays)
+    .sort((a, b) => a.date.localeCompare(b.date))
 
   // Longest streak
   let streak =0, longest = 0
@@ -30,9 +31,10 @@ export function computeStats(raw: RawWrapped): WrappedStats {
   }
 
   // Busiest day
-  const busiestDay = days.reduce((m: any, d: any) =>
-    d.contributionCount > m.count ? { date: d.date, count: d.contributionCount } : m,
-    { date: "", count: 0 })
+  const busiestDay = days.reduce<{ date: string; count: number }> (
+    (m, d) => 
+      d.contributionCount > m.count ? { date: d.date, count: d.contributionCount } : m, { date: "", count: 0 }
+  )
   
     // Busiest month
     const byMonth = new Map<string, number>()
@@ -41,6 +43,14 @@ export function computeStats(raw: RawWrapped): WrappedStats {
       byMonth.set(key, (byMonth.get(key) ?? 0) + d.contributionCount)
     }
     const [bm, bmCount] = [...byMonth.entries()].sort((a, b) => b[1] - a[1])[0] ?? ["", 0]
+
+    // Contributions by weekday
+    const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    const weekdayTotals = new Array(7).fill(0)
+    for (const d of days) {
+      weekdayTotals[d.weekday] += d.contributionCount
+    }
+    const byWeekday = weekdayTotals.map((count, i) => ({ day: WEEKDAYS[i], count }))
 
     // Languages + top repo (from commitContributionsByRepository)
     const langs = new Map<string, number>()
@@ -71,6 +81,7 @@ export function computeStats(raw: RawWrapped): WrappedStats {
         .sort((a, b) => b[1] - a[1]).slice(0, 5)
         .map(([name, commits]) => ({ name, commits })),
       topRepo,
+      byWeekday,
     }
 }
 
