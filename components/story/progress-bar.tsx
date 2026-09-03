@@ -6,7 +6,7 @@ export function ProgressBar({
   current: number
 }) {
   return (
-    <div className="absolute inset-x-0 top-0 z-20 flex gap-1 p-3">
+    <div className="absolute inset-x-0 top-0 z-30 flex gap-1 p-3">
       {Array.from({ length: total }).map((_, i) => (
         <div
           key={i}

@@ -55,7 +55,7 @@ export function Story({ stats }: { stats: WrappedStats }) {
         <ProgressBar total={cards.length} current={index} />
 
         <div
-          className="h-full w-full animate-in duration-300 fade-in"
+          className="pointer-events-none relative z-20 h-full w-full animate-in duration-300 fade-in"
           key={index}
         >
           {cards[index]}

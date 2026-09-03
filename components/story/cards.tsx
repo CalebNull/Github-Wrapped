@@ -66,7 +66,7 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
 
     <StoryCard key="weekday" gradient="from-teal-500 to-cyan-700">
       <div className="text-lg font-medium text-white/90">When you commit</div>
-      <div className="w-full">
+      <div className="pointer-events-auto w-full">
         <WeekdayChart data={stats.byWeekday} />
       </div>
     </StoryCard>,
@@ -76,7 +76,7 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
         Your top languages
       </div>
       {stats.topLanguages.length > 0 ? (
-        <div className="w-full">
+        <div className="pointer-events-auto w-full">
           <LanguageChart data={stats.topLanguages} />
         </div>
       ) : (
@@ -112,7 +112,7 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
       </div>
       <Link
         href="/"
-        className="relative inline-block after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-bottom after:scale-x-0 after:bg-white after:transition-transform after:duration-150 after:ease-out after:content-[''] hover:after:scale-x-100"
+        className="pointer-events-auto relative z-20 inline-block after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-bottom after:scale-x-0 after:bg-white after:transition-transform after:duration-150 after:ease-out after:content-[''] hover:after:scale-x-100"
       >
         Wrap up another
       </Link>
