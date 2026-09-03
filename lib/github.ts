@@ -3,13 +3,48 @@ import { Octokit } from "octokit"
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
 
+export type ContributionDay = {
+  date: string
+  contributionCount: number
+  weekday: number
+}
+
+export type RepoContribution = {
+  repository: {
+    name: string
+    primaryLanguage: { name: string } | null
+    stargazerCount: number
+  }
+  contributions: { totalCount: number }
+}
+
+export type ContributionsCollection = {
+  totalCommitContributions: number
+  totalPullRequestContributions: number
+  totalIssueContributions: number
+  totalPullRequestReviewContributions: number
+  contributionCalendar: {
+    totalContributions: number
+    weeks: { contributionDays: ContributionDay[] }[]
+  }
+  commitContributionsByRepository: RepoContribution[]
+}
+
 export type RawWrapped = {
   login: string
   name: string | null
   avatarUrl: string
   year: number
-  contributions: any
-  repos: any[]
+  contributions: ContributionsCollection
+  repos: RepoContribution[]
+}
+
+export type GraphQLResponse = {
+  user: {
+    name: string | null
+    avatarUrl: string
+    contributionsCollection: ContributionsCollection
+  } | null
 }
 
 const QUERY = `
@@ -38,7 +73,7 @@ const QUERY = `
 export async function fetchWrapped(login: string, year: number): Promise<RawWrapped> {
   const from = `${year}-01-01T00:00:00Z`
   const to = `${year}-12-31T23:59:59Z`
-  const data: any = await octokit.graphql(QUERY, { login, from, to })
+  const data = await octokit.graphql<GraphQLResponse>(QUERY, { login, from, to })
   if (!data.user) throw new Error("USER_NOT_FOUND")
   const c = data.user.contributionsCollection
   return {
