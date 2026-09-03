@@ -5,7 +5,6 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import type { WrappedStats } from "@/lib/wrapped"
 import { buildCards } from "./cards"
 import { ProgressBar } from "./progress-bar"
-import { Button } from "../ui/button"
 
 export function Story({ stats }: { stats: WrappedStats }) {
   const cards = useMemo(() => buildCards(stats), [stats])
