@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import { computeStats, isValidUsername } from "./wrapped"
-import type { ContributionDay, RawWrapped } from "./github"
+import { computeStats, isValidUsername } from "@/lib/wrapped"
+import type { ContributionDay, RawWrapped } from "@/lib/github"
 
 // ---- fixtures -------------------------------------------------------------
 
