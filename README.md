@@ -23,7 +23,7 @@ The recap renders as a full-screen card story with keyboard, click, and swipe na
 - [x] Language + weekday charts (Recharts)
 - [x] Full-year contribution heatmap
 - [ ] Dynamic Open Graph share image (`next/og`)
-- [ ] "Developer persona" classifier
+- [x] "Developer persona" classifier
 - [ ] Redis caching + per-IP rate limiting
 - [x] Unit tests for `computeStats`
 

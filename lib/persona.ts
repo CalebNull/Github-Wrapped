@@ -82,7 +82,7 @@ export function classifyPersona(s: WrappedStats): Persona {
     }
   }
 
-  if (weekdayShare >= 0.4) {
+  if (weekendShare >= 0.4) {
     return {
       key: "weekend-warrior",
       title: "The Weekend Warrior",
