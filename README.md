@@ -21,11 +21,11 @@ The recap renders as a full-screen card story with keyboard, click, and swipe na
 - [x] Data layer + landing flow
 - [x] Swipeable card story
 - [x] Language + weekday charts (Recharts)
-- [ ] Full-year contribution heatmap
+- [x] Full-year contribution heatmap
 - [ ] Dynamic Open Graph share image (`next/og`)
 - [ ] "Developer persona" classifier
 - [ ] Redis caching + per-IP rate limiting
-- [ ] Unit tests for `computeStats`
+- [x] Unit tests for `computeStats`
 
 ## Notes
 
