@@ -4,6 +4,7 @@ import { LanguageChart, WeekdayChart } from "./charts"
 import { Heatmap } from "./heatmap"
 
 import Link from "next/link"
+import { classifyPersona } from "@/lib/persona"
 
 const MONTHS = [
   "January",
@@ -26,6 +27,7 @@ function monthName(yyyymm: string) {
 }
 
 export function buildCards(stats: WrappedStats): React.ReactNode[] {
+  const persona = classifyPersona(stats)
   return [
     <StoryCard key="intro" gradient="from-violet-600 to-indigo-700">
       <div className="text-sm tracking-widest text-white/70 uppercase">
@@ -112,6 +114,17 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
         </div>
       </StoryCard>
     ),
+
+    <StoryCard key="persona" gradient="from-purple-600 to-indigo-700">
+      <div className="text-sm tracking-widest text-white/70 uppercase">
+        Your developer persona
+      </div>
+      <div className="text-6xl">{persona.emoji}</div>
+      <div className="font-heading text-4xl font-extrabold">
+        {persona.title}
+      </div>
+      <div className="max-w-xs text-white/80">{persona.blurb}</div>
+    </StoryCard>,
 
     <StoryCard key="summary" gradient="from-zinc-800 to-zinc-900">
       <div className="text-sm tracking-widest text-white/60 uppercase">

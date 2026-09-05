@@ -17,6 +17,8 @@ export type WrappedStats = {
   topRepo: { name:string, commits: number } | null
   byWeekday: { day: string; count: number; }[],
   weeks: { date: string; count: number; weekday: number; level: number }[][],
+  activeDays: number,
+  repoCount: number,
 }
 
 export function computeStats(raw: RawWrapped): WrappedStats {
@@ -100,6 +102,8 @@ export function computeStats(raw: RawWrapped): WrappedStats {
       topRepo,
       byWeekday,
       weeks,
+      activeDays: days.filter((d) => d.contributionCount > 0).length,
+      repoCount: raw.repos.filter((r) => r.contributions.totalCount > 0).length,
     }
 }
 
