@@ -22,7 +22,7 @@ The recap renders as a full-screen card story with keyboard, click, and swipe na
 - [x] Swipeable card story
 - [x] Language + weekday charts (Recharts)
 - [x] Full-year contribution heatmap
-- [-] Dynamic Open Graph share image (`next/og`) ← code done, needs verify + checkbox
+- [X] Dynamic Open Graph share image (`next/og`)
 - [x] Developer persona classifier
 - [ ] Redis caching + per-IP rate limiting
 - [x] Unit tests for `computeStats`

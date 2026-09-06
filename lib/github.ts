@@ -73,7 +73,19 @@ const QUERY = `
 export async function fetchWrapped(login: string, year: number): Promise<RawWrapped> {
   const from = `${year}-01-01T00:00:00Z`
   const to = `${year}-12-31T23:59:59Z`
-  const data = await octokit.graphql<GraphQLResponse>(QUERY, { login, from, to })
+
+  let data: GraphQLResponse
+  try {
+    data = await octokit.graphql<GraphQLResponse>(QUERY, { login, from, to })
+  } catch (e) {
+    // GitHub returns NOT_FOUND for unknown logins *and* for orgs (octokit, vercel...)
+    const errors = (e as { errors?: { type?: string }[] })?.errors
+    if (Array.isArray(errors) && errors.some((x) => x?.type === "NOT_FOUND")) {
+      throw new Error("USER_NOT_FOUND")
+    }
+    throw e
+  }
+
   if (!data.user) throw new Error("USER_NOT_FOUND")
   const c = data.user.contributionsCollection
   return {
@@ -82,6 +94,6 @@ export async function fetchWrapped(login: string, year: number): Promise<RawWrap
     avatarUrl: data.user.avatarUrl,
     year,
     contributions: c,
-    repos: c.commitContributionsByRepository
+    repos: c.commitContributionsByRepository,
   }
 }

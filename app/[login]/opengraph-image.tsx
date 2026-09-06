@@ -1,14 +1,14 @@
+/* eslint-disable @next/next/no-img-element -- next/og requires a plain <img> */
 import type { ReactElement } from "react"
 import { ImageResponse } from "next/og"
 import { fetchWrapped } from "@/lib/github"
 import { computeStats } from "@/lib/wrapped"
 import { classifyPersona } from "@/lib/persona"
-import { PersonaIcon } from "@/components/persona-icon"
 
 export const alt = "GitHub Wrapped"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
-export const revalidate = 86400 // has to app/[login]/page.tsx
+export const revalidate = 86400 // keep in sync with app/[login]/page.tsx
 
 export default async function Image({
   params,
@@ -24,15 +24,14 @@ export default async function Image({
   try {
     const stats = computeStats(await fetchWrapped(login, year))
     const persona = classifyPersona(stats)
-    const topLang = stats.topLanguages[0]?.name ?? ""
+    const topLang = stats.topLanguages[0]?.name ?? "—"
 
-    // -- Tries to fetch the user's avatar
     let avatarSrc: string | null = null
     try {
       const res = await fetch(stats.avatarUrl)
       if (!res.ok) {
         console.warn(
-          `[og-image] avatar fetch for ${login} returned ${res.status} ${res.statusText} (${stats.avatarUrl})`
+          `[og-image] avatar for ${login}: ${res.status} ${res.statusText}`
         )
       } else {
         const buf = await res.arrayBuffer()
@@ -40,10 +39,7 @@ export default async function Image({
         avatarSrc = `data:${type};base64,${Buffer.from(buf).toString("base64")}`
       }
     } catch (err) {
-      console.warn(
-        `[og-image] avatar fetch for ${login} failed (${stats.avatarUrl}):`,
-        err
-      )
+      console.warn(`[og-image] avatar fetch for ${login} failed:`, err)
     }
 
     body = (
@@ -64,7 +60,6 @@ export default async function Image({
       >
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
           {avatarSrc && (
-            // eslint-disable-next-line
             <img
               src={avatarSrc}
               width={96}
@@ -78,7 +73,7 @@ export default async function Image({
               {stats.name ?? stats.login}
             </div>
             <div style={{ fontSize: 24, opacity: 0.7 }}>
-              @{stats.login} · {year} GitHub Wrapped
+              {`@${stats.login} · ${year} GitHub Wrapped`}
             </div>
           </div>
         </div>
@@ -94,25 +89,13 @@ export default async function Image({
           <div style={{ display: "flex", gap: 56 }}>
             <Stat label="Longest streak" value={`${stats.longestStreak}d`} />
             <Stat label="Top language" value={topLang} />
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ fontSize: 22, opacity: 0.6 }}>Persona</div>
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <PersonaIcon
-                  name={persona.icon}
-                  size={34}
-                  color="white"
-                  weight="fill"
-                />
-                <div style={{ fontSize: 34, fontWeight: 700 }}>
-                  {persona.title}
-                </div>
-              </div>
-            </div>
+            <Stat label="Persona" value={persona.title} />
           </div>
         </div>
       </div>
     )
-  } catch {
+  } catch (err) {
+    console.error("[og-image] render failed:", err)
     body = (
       <div
         style={{
