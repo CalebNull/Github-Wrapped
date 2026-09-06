@@ -31,6 +31,12 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
   const persona = classifyPersona(stats)
   return [
     <StoryCard key="intro" gradient="from-violet-600 to-indigo-700">
+      {/* eslint-disable-next-line */}
+      <img
+        src={stats.avatarUrl}
+        alt=""
+        className="size-20 rounded-full ring-2 ring-white/30"
+      />
       <div className="text-sm tracking-widest text-white/70 uppercase">
         {stats.year} GitHub Wrapped
       </div>

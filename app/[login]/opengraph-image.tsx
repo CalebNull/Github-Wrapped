@@ -1,7 +1,3 @@
-{
-  /* eslint-disable */
-}
-
 import type { ReactElement } from "react"
 import { ImageResponse } from "next/og"
 import { fetchWrapped } from "@/lib/github"
@@ -30,6 +26,26 @@ export default async function Image({
     const persona = classifyPersona(stats)
     const topLang = stats.topLanguages[0]?.name ?? ""
 
+    // -- Tries to fetch the user's avatar
+    let avatarSrc: string | null = null
+    try {
+      const res = await fetch(stats.avatarUrl)
+      if (!res.ok) {
+        console.warn(
+          `[og-image] avatar fetch for ${login} returned ${res.status} ${res.statusText} (${stats.avatarUrl})`
+        )
+      } else {
+        const buf = await res.arrayBuffer()
+        const type = res.headers.get("content-type") ?? "image/png"
+        avatarSrc = `data:${type};base64,${Buffer.from(buf).toString("base64")}`
+      }
+    } catch (err) {
+      console.warn(
+        `[og-image] avatar fetch for ${login} failed (${stats.avatarUrl}):`,
+        err
+      )
+    }
+
     body = (
       <div
         style={{
@@ -47,13 +63,16 @@ export default async function Image({
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          <img
-            src={stats.avatarUrl}
-            width={96}
-            height={96}
-            alt=""
-            style={{ borderRadius: 96 }}
-          />
+          {avatarSrc && (
+            // eslint-disable-next-line
+            <img
+              src={avatarSrc}
+              width={96}
+              height={96}
+              alt=""
+              style={{ borderRadius: 96 }}
+            />
+          )}
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ fontSize: 40, fontWeight: 700 }}>
               {stats.name ?? stats.login}
