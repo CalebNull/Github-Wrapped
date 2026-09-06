@@ -1,10 +1,24 @@
 import type { WrappedStats } from "./wrapped";
 
+export type PersonaIcon =
+  | "GhostIcon"
+  | "MagnifyingGlassIcon"
+  | "BoatIcon"
+  | "PawPrintIcon"
+  | "TranslateIcon"
+  | "TargetIcon"
+  | "FlameIcon"
+  | "TentIcon"
+  | "BriefcaseIcon"
+  | "LightningIcon"
+  | "PersonSimpleRunIcon"
+  | "CompassIcon"
+
 export type Persona = {
   key: string
   title: string
   blurb: string
-  emoji: string
+  icon: PersonaIcon
 }
 
 export function classifyPersona(s: WrappedStats): Persona {
@@ -24,7 +38,7 @@ export function classifyPersona(s: WrappedStats): Persona {
       key: "ghost",
       title: "The Ghost",
       blurb: "A quiet year on GitHub. Next year's the one.",
-      emoji: "👻"
+      icon: "GhostIcon"
     }
   }
 
@@ -33,7 +47,7 @@ export function classifyPersona(s: WrappedStats): Persona {
       key: "reviewer",
       title: "The Reviewer",
       blurb: "You spent more time in other people's pull requests than your own.",
-      emoji: "🔍"
+      icon: "MagnifyingGlassIcon"
     }
   }
 
@@ -42,7 +56,7 @@ export function classifyPersona(s: WrappedStats): Persona {
       key: "shipper",
       title: "The Shipper",
       blurb: "Open, review, merge, repeat. The pipeline never stopped.",
-      emoji: "🚢"
+      icon: "BoatIcon"
     }
   }
 
@@ -51,7 +65,7 @@ export function classifyPersona(s: WrappedStats): Persona {
       key: "lone-wolf",
       title: "The Lone Wolf",
       blurb: `Almost every commit landed in ${s.topRepo.name}.`,
-      emoji: "🐺"
+      icon: "PawPrintIcon"
     }
   }
 
@@ -60,7 +74,7 @@ export function classifyPersona(s: WrappedStats): Persona {
       key: "polyglot",
       title: "The Polyglot",
       blurb: `${s.topLanguages.length} languages and no clear favorite.`,
-      emoji: "🗣️"
+      icon: "TranslateIcon"
     }
   }
 
@@ -69,7 +83,7 @@ export function classifyPersona(s: WrappedStats): Persona {
       key: "specialist",
       title: "The Specialist",
       blurb: `${topLang}, ${topLang}, and a little more ${topLang}.`,
-      emoji: "🎯"
+      icon: "TargetIcon"
     }
   }
 
@@ -78,7 +92,7 @@ export function classifyPersona(s: WrappedStats): Persona {
       key: "streak-keeper",
       title: "The Streak Keeper",
       blurb: `${s.longestStreak} days in a row without missing.`,
-      emoji: "🔥"
+      icon: "FlameIcon"
     }
   }
 
@@ -87,7 +101,7 @@ export function classifyPersona(s: WrappedStats): Persona {
       key: "weekend-warrior",
       title: "The Weekend Warrior",
       blurb: `Weekdays are for meetings. Weekends are for shipping.`,
-      emoji: "🏕️"
+      icon: "TentIcon"
     }
   }
 
@@ -96,7 +110,7 @@ export function classifyPersona(s: WrappedStats): Persona {
       key: "nine-to-five",
       title: "The Nine-to-Five",
       blurb: "Clocks in, commits, clocks out. Weekends off.",
-      emoji: "🏢",
+      icon: "BriefcaseIcon",
     }
 
   if (monthShare >= 0.4)
@@ -104,7 +118,7 @@ export function classifyPersona(s: WrappedStats): Persona {
       key: "sprinter",
       title: "The Sprinter",
       blurb: "One big month carried the whole year.",
-      emoji: "⚡",
+      icon: "LightningIcon",
     }
 
   if (s.activeDays >= 200)
@@ -112,13 +126,13 @@ export function classifyPersona(s: WrappedStats): Persona {
       key: "marathoner",
       title: "The Marathoner",
       blurb: `Active on ${s.activeDays} days. Steady the whole way.`,
-      emoji: "🏃",
+      icon: "PersonSimpleRunIcon",
     }
 
   return {
     key: "explorer",
     title: "The Explorer",
     blurb: "A bit of everything, spread across the year.",
-    emoji: "🧭",
+    icon: "CompassIcon",
   }
 }

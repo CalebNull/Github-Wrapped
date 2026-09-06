@@ -5,6 +5,7 @@ import { Heatmap } from "./heatmap"
 
 import Link from "next/link"
 import { classifyPersona } from "@/lib/persona"
+import { PersonaIcon } from "../persona-icon"
 
 const MONTHS = [
   "January",
@@ -36,7 +37,9 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
       <div className="font-heading text-4xl font-extrabold">
         {stats.name ?? stats.login}
       </div>
-      <div className="text-white/70">Let&apos;s look back at your year.</div>
+      <div className="text-white/70">
+        Let&apos;s look back at {stats.name ?? stats.login}&apos;s year.
+      </div>
     </StoryCard>,
 
     <StoryCard key="contributions" gradient="from-emerald-600 to-green-700">
@@ -119,7 +122,12 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
       <div className="text-sm tracking-widest text-white/70 uppercase">
         Your developer persona
       </div>
-      <div className="text-6xl">{persona.emoji}</div>
+      <PersonaIcon
+        name={persona.icon}
+        size={72}
+        width="duotone"
+        className="text-white"
+      />
       <div className="font-heading text-4xl font-extrabold">
         {persona.title}
       </div>
