@@ -1,5 +1,6 @@
 import "server-only"
 import { Octokit } from "octokit"
+import { redis } from "./redis"
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
 
@@ -70,7 +71,20 @@ const QUERY = `
   }
 `
 
+const CACHE_TIL = 60 * 60 * 24 // 24h for a successful lookup
+const NEG_TIL = 60 * 60 // 1h for "no such user" (negative cache)
+
 export async function fetchWrapped(login: string, year: number): Promise<RawWrapped> {
+  const key = `wrapped:v1:${login.toLowerCase()}:${year}`
+
+  if (redis) {
+    const cached = await redis.get<RawWrapped | { notFound: true }>(key)
+    if (cached) {
+      if ("notFound" in cached) throw new Error("USER_NOT_FOUND")
+      return cached
+    }
+  }
+
   const from = `${year}-01-01T00:00:00Z`
   const to = `${year}-12-31T23:59:59Z`
 
@@ -81,14 +95,19 @@ export async function fetchWrapped(login: string, year: number): Promise<RawWrap
     // GitHub returns NOT_FOUND for unknown logins *and* for orgs (octokit, vercel...)
     const errors = (e as { errors?: { type?: string }[] })?.errors
     if (Array.isArray(errors) && errors.some((x) => x?.type === "NOT_FOUND")) {
+      if (redis) await redis.set(key, { notFound: true }, { ex: NEG_TIL })
       throw new Error("USER_NOT_FOUND")
     }
     throw e
   }
 
-  if (!data.user) throw new Error("USER_NOT_FOUND")
+
+  if (!data.user) {
+    if (redis) await redis.set(key, { notFound: true }, { ex: NEG_TIL })
+    throw new Error("USER_NOT_FOUND")
+  }
   const c = data.user.contributionsCollection
-  return {
+  const result: RawWrapped = {
     login,
     name: data.user.name,
     avatarUrl: data.user.avatarUrl,
@@ -96,4 +115,7 @@ export async function fetchWrapped(login: string, year: number): Promise<RawWrap
     contributions: c,
     repos: c.commitContributionsByRepository,
   }
+
+  if (redis) await redis.set(key, result, { ex: CACHE_TIL })
+  return result
 }
