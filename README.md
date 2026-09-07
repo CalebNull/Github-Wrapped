@@ -11,7 +11,6 @@ previews.
 
 <!-- TODO: replace with your deployed URL -->
 ### ▶ [Live demo](https://github-wrapped-sigma.vercel.app/)
-<!-- ![GitHub Wrapped walkthrough](docs/GitHub-Wrapped-Demo.mp4) -->
 ---
 
 <p align="center">
