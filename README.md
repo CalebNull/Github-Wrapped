@@ -10,10 +10,21 @@ heatmap, and a "developer persona" — ending in a share card built for link
 previews.
 
 <!-- TODO: replace with your deployed URL -->
-### ▶ [Live demo](https://TODO.vercel.app)
+### ▶ [Live demo](https://github-wrapped-sigma.vercel.app/)
+<!-- ![GitHub Wrapped walkthrough](docs/GitHub-Wrapped-Demo.mp4) -->
+---
 
-<!-- TODO: record a 5s swipe-through, save as docs/demo.gif, uncomment -->
-<!-- ![GitHub Wrapped walkthrough](docs/demo.gif) -->
+<p align="center">
+  <img src="docs/GitHub-Wrapped-Intro-Card.png" alt="The GitHub Wrapped story — intro card" width="400" height="600">
+</p>
+
+<p align="center">
+  <img src="docs/GitHub-Wrapped-Heatmap-Card.png" alt="The GitHub Wrapped story — intro card" width="400" height="600">
+</p>
+
+<p align="center">
+  <img src="docs/GitHub-Wrapped-Open-Graph.png" alt="The GitHub Wrapped story — intro card" width="400">
+</p>
 
 ---
 
