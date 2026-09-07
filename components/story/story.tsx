@@ -63,12 +63,12 @@ export function Story({ stats }: { stats: WrappedStats }) {
 
         <button
           aria-label="Previous"
-          className="absolute inset-y-0 left-0 z-10 w-1/3 cursor-default"
+          className="absolute inset-y-0 left-0 z-10 w-1/3 cursor-default focus:outline-none"
           onClick={prev}
         />
         <button
           aria-label="Next"
-          className="absolute inset-y-0 right-0 z-10 w-1/3 cursor-default"
+          className="absolute inset-y-0 right-0 z-10 w-1/3 cursor-default focus:outline-none"
           onClick={next}
         />
         <Link
