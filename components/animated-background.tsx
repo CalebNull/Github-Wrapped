@@ -14,7 +14,7 @@ export function AnimatedBackground() {
       <div className="aurora-blob absolute bottom-[0%] left-[25%] h-[38vmax] w-[38vmax] rounded-full bg-aurora-3 opacity-55 blur-[100px]" />
 
       {/* soft glow */}
-      <div className="absolute inset-0 m-auto flex h-[32vmax] w-[32vmax] items-center justify-center">
+      <div className="w-[32vmax]bun absolute inset-0 m-auto flex h-[32vmax] items-center justify-center">
         <div className="aurora-blob h-full w-full rounded-full bg-aurora-4 opacity-70 blur-[80px]" />
       </div>
     </div>
