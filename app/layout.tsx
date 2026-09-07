@@ -4,7 +4,7 @@ import { Metadata } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
-import { AnimatedBackground } from "@/components/animated-background"
+import { GlowBackground } from "@/components/glow-background"
 
 const publicSansHeading = Public_Sans({
   subsets: ["latin"],
@@ -46,7 +46,7 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider>
-          <AnimatedBackground />
+          <GlowBackground />
           {children}
         </ThemeProvider>
       </body>
