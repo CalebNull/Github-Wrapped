@@ -2,6 +2,7 @@ import type { WrappedStats } from "@/lib/wrapped"
 import { StoryCard, BigStat } from "./story-card"
 import { LanguageChart, WeekdayChart } from "./charts"
 import { Heatmap } from "./heatmap"
+import { ShareButton } from "../share-button"
 
 import Link from "next/link"
 import { classifyPersona } from "@/lib/persona"
@@ -150,6 +151,9 @@ export function buildCards(stats: WrappedStats): React.ReactNode[] {
         <Fact k="Top language" v={stats.topLanguages[0]?.name ?? "-"} />
         <Fact k="Busiest month" v={monthName(stats.busiestMonth.month)} />
       </div>
+
+      <ShareButton stats={stats} />
+
       <Link
         href="/"
         className="pointer-events-auto relative z-20 inline-block after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-bottom after:scale-x-0 after:bg-white after:transition-transform after:duration-150 after:ease-out after:content-[''] hover:after:scale-x-100"
