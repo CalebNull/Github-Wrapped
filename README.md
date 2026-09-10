@@ -13,6 +13,10 @@ previews.
 ### ▶ [Live demo](https://github-wrapped-sigma.vercel.app/)
 ---
 
+https://github.com/user-attachments/assets/07fa7ba1-28a5-47a3-af6e-59805ed9c1de
+
+
+
 <p align="center">
   <img src="docs/GitHub-Wrapped-Intro-Card.png" alt="The GitHub Wrapped story — intro card" width="400" height="600">
 </p>
