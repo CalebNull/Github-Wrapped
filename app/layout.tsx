@@ -1,6 +1,6 @@
 import { Geist_Mono, Noto_Sans, Public_Sans } from "next/font/google"
 
-import { Metadata } from "next"
+import { Metadata, Viewport } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
@@ -25,6 +25,10 @@ export const metadata: Metadata = {
   title: "GitHub Wrapped",
   description:
     "Your GitHub year in review — commits, streaks, languages, and more.",
+}
+
+export const viewport: Viewport = {
+  themeColor: "#7c3aed",
 }
 
 export default function RootLayout({

@@ -14,10 +14,24 @@ export async function generateMetadata({
   const { login } = await params
   const name = decodeURIComponent(login)
   const year = new Date().getFullYear() - 1
+  const title = `${name}'s ${year} GitHub Wrapped`
+  const description = `${name}'s year on GitHub - contributions, streaks, languages, and more.`
 
   return {
-    title: `${name}'s ${year} GitHub Wrapped`,
-    description: `${name}'s year on GitHub - contributions, streaks, languages, and more.`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: `/${encodeURIComponent(login)}`,
+      siteName: "GitHub Wrapped",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   }
 }
 
